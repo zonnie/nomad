@@ -230,12 +230,13 @@ var (
 			"email":          hclspec.NewAttr("email", "string", false),
 			"server_address": hclspec.NewAttr("server_address", "string", false),
 		})),
-		"auth_soft_fail": hclspec.NewAttr("auth_soft_fail", "bool", false),
-		"cap_add":        hclspec.NewAttr("cap_add", "list(string)", false),
-		"cap_drop":       hclspec.NewAttr("cap_drop", "list(string)", false),
-		"command":        hclspec.NewAttr("command", "string", false),
-		"cpu_hard_limit": hclspec.NewAttr("cpu_hard_limit", "bool", false),
-		"cpu_cfs_period": hclspec.NewAttr("cpu_cfs_period", "number", false),
+	"auth_soft_fail": 			hclspec.NewAttr("auth_soft_fail", "bool", false),
+		"cap_add":        		hclspec.NewAttr("cap_add", "list(string)", false),
+		"cap_drop":       		hclspec.NewAttr("cap_drop", "list(string)", false),
+		"command":        	 	hclspec.NewAttr("command", "string", false),
+		"cpu_hard_limit": 	 	hclspec.NewAttr("cpu_hard_limit", "bool", false),
+		"memory_soft_limit": 	hclspec.NewAttr("memory_soft_limit", "bool", true),
+		"cpu_cfs_period": 		hclspec.NewAttr("cpu_cfs_period", "number", false),
 		"devices": hclspec.NewBlockList("devices", hclspec.NewObject(map[string]*hclspec.Spec{
 			"host_path":          hclspec.NewAttr("host_path", "string", false),
 			"container_path":     hclspec.NewAttr("container_path", "string", false),
@@ -324,6 +325,7 @@ type TaskConfig struct {
 	Command           string             `codec:"command"`
 	CPUCFSPeriod      int64              `codec:"cpu_cfs_period"`
 	CPUHardLimit      bool               `codec:"cpu_hard_limit"`
+	MemorySoftLimit	  bool				 `codec:"memory_soft_limit"`
 	Devices           []DockerDevice     `codec:"devices"`
 	DNSSearchDomains  []string           `codec:"dns_search_domains"`
 	DNSOptions        []string           `codec:"dns_options"`
