@@ -706,6 +706,13 @@ func (d *Driver) createContainerConfig(task *drivers.TaskConfig, driverConfig *T
 		hostConfig.Runtime = d.config.GPURuntimeName
 	}
 
+	// If the soft memory limit is enabled we should disable memory hard limit
+	// and use Docker memory-reservation which acts as memory soft limit
+	if driverConfig.MemorySoftLimit {
+		hostConfig.Memory = 0
+		hostConfig.MemoryReservation = int64(task.Resources.LinuxResources.MemoryLimitBytes) / 1024
+	}
+
 	// Calculate CPU Quota
 	// cfs_quota_us is the time per core, so we must
 	// multiply the time by the number of cores available
@@ -720,10 +727,6 @@ func (d *Driver) createContainerConfig(task *drivers.TaskConfig, driverConfig *T
 		}
 		hostConfig.CPUPeriod = driverConfig.CPUCFSPeriod
 		hostConfig.CPUQuota = int64(task.Resources.LinuxResources.PercentTicks*float64(driverConfig.CPUCFSPeriod)) * int64(numCores)
-	}
-
-	if driverConfig.MemorySoftLimit {
-		config.MemoryReservation = hostConfig.Memory
 	}
 
 	// Windows does not support MemorySwap/MemorySwappiness #2193
