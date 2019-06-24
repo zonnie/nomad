@@ -706,13 +706,6 @@ func (d *Driver) createContainerConfig(task *drivers.TaskConfig, driverConfig *T
 		hostConfig.Runtime = d.config.GPURuntimeName
 	}
 
-	// If the soft memory limit is enabled we should disable memory hard limit
-	// and use Docker memory-reservation which acts as memory soft limit
-	if driverConfig.MemorySoftLimit {
-		hostConfig.Memory = 0
-		hostConfig.MemoryReservation = int64(task.Resources.LinuxResources.MemoryLimitBytes) / 1024
-	}
-
 	// Calculate CPU Quota
 	// cfs_quota_us is the time per core, so we must
 	// multiply the time by the number of cores available
@@ -729,13 +722,27 @@ func (d *Driver) createContainerConfig(task *drivers.TaskConfig, driverConfig *T
 		hostConfig.CPUQuota = int64(task.Resources.LinuxResources.PercentTicks*float64(driverConfig.CPUCFSPeriod)) * int64(numCores)
 	}
 
-	// Windows does not support MemorySwap/MemorySwappiness #2193
-	if runtime.GOOS == "windows" {
-		hostConfig.MemorySwap = 0
-		hostConfig.MemorySwappiness = -1
-	} else {
-		hostConfig.MemorySwap = task.Resources.LinuxResources.MemoryLimitBytes // MemorySwap is memory + swap.
+	// If the soft memory limit is enabled we should disable memory hard limit
+	// and use Docker memory-reservation which acts as memory soft limit
+	if driverConfig.MemorySoftLimit {
+		logger.Info("using soft memory limits - no Docker OOM killer should occur")
+		hostConfig.Memory = 0 // setting hard memory limit to a really high value
+		hostConfig.MemoryReservation = task.Resources.LinuxResources.MemoryLimitBytes
 	}
+
+	// YoniS - we disable memory swap because we cannot set 0 hard memory limit when it's enabled
+	// this is a Docker constraint, otherwise Docker's API responds with:
+	//		"You should always set the Memory limit when using Memoryswap limit, see usage"
+	hostConfig.MemorySwap = 0
+	hostConfig.MemorySwappiness = -1
+
+	// Windows does not support MemorySwap/MemorySwappiness #2193
+	// if runtime.GOOS == "windows" {
+	// 	hostConfig.MemorySwap = 0
+	// 	hostConfig.MemorySwappiness = -1
+	// } else {
+	// 	hostConfig.MemorySwap = task.Resources.LinuxResources.MemoryLimitBytes // MemorySwap is memory + swap.
+	// }
 
 	loggingDriver := driverConfig.Logging.Type
 	if loggingDriver == "" {
