@@ -722,6 +722,10 @@ func (d *Driver) createContainerConfig(task *drivers.TaskConfig, driverConfig *T
 		hostConfig.CPUQuota = int64(task.Resources.LinuxResources.PercentTicks*float64(driverConfig.CPUCFSPeriod)) * int64(numCores)
 	}
 
+	if driverConfig.MemorySoftLimit {
+		config.MemoryReservation = hostConfig.Memory
+	}
+
 	// Windows does not support MemorySwap/MemorySwappiness #2193
 	if runtime.GOOS == "windows" {
 		hostConfig.MemorySwap = 0
@@ -738,6 +742,10 @@ func (d *Driver) createContainerConfig(task *drivers.TaskConfig, driverConfig *T
 	hostConfig.LogConfig = docker.LogConfig{
 		Type:   loggingDriver,
 		Config: driverConfig.Logging.Config,
+	}
+
+	if driverConfig.MemorySoftLimit {
+		logger.Debug("using memory soft limits")
 	}
 
 	logger.Debug("configured resources", "memory", hostConfig.Memory,

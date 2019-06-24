@@ -152,6 +152,7 @@ func TestDockerDriver_CPUCFSPeriod(t *testing.T) {
 
 	task, cfg, _ := dockerTask(t)
 	cfg.CPUHardLimit = true
+	cfg.MemorySoftLimit = true
 	cfg.CPUCFSPeriod = 1000000
 	require.NoError(t, task.EncodeConcreteDriverConfig(cfg))
 

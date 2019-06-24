@@ -186,6 +186,7 @@ config {
   cap_drop = ["CAP_SYS_ADMIN", "CAP_SYS_TIME"]
   command = "/bin/bash"
   cpu_hard_limit = true
+  memory_soft_limit = true
   cpu_cfs_period = 20
   devices = [
     {"host_path"="/dev/null", "container_path"="/tmp/container-null", cgroup_permissions="rwm"},
@@ -301,12 +302,13 @@ config {
 			Email:      "myemail@example.com",
 			ServerAddr: "https://example.com",
 		},
-		AuthSoftFail: true,
-		CapAdd:       []string{"CAP_SYS_NICE"},
-		CapDrop:      []string{"CAP_SYS_ADMIN", "CAP_SYS_TIME"},
-		Command:      "/bin/bash",
-		CPUHardLimit: true,
-		CPUCFSPeriod: 20,
+		AuthSoftFail:    true,
+		CapAdd:          []string{"CAP_SYS_NICE"},
+		CapDrop:         []string{"CAP_SYS_ADMIN", "CAP_SYS_TIME"},
+		Command:         "/bin/bash",
+		CPUHardLimit:    true,
+		MemorySoftLimit: true,
+		CPUCFSPeriod:    20,
 		Devices: []DockerDevice{
 			{
 				HostPath:          "/dev/null",
