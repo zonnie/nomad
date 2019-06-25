@@ -64,7 +64,8 @@ $ cd nomad
 $ make bootstrap
 ```
 
-**Build Release Binary**
+Build Release Binary
+--------------------
 ```sh
 $ go build -o $HOME/nomad
 $ zip -j $HOME/nomad.zip $HOME/nomad
