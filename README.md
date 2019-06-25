@@ -12,7 +12,6 @@ This is our twist on Nomad, it has several modifications over the origianl Nomad
 
 * Support in **soft memory limits** - this allows to sensibly distribute load across nodes w/o paying in constant OOM killing
 
-
 Contributing to `gc-nomad`
 ==============================
 Follow the instructions to contribute to `gc-nomad`
@@ -49,10 +48,11 @@ $ zip -r $HOME/nomad_src.zip nomad
 $ scp $HOME/nomad.zip root@web-server:/root/go/src/github.com/hashicorp/.
 ```
 
-
-
 `gc-nomad` Build node
 ==============================
+Follow these instructions to:
+- Create a `gc-nomad` build node
+- Build a release `gc-nomad` binary
 
 Prepare Build Node
 ------------------
