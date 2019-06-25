@@ -16,6 +16,11 @@ Contributing to `gc-nomad`
 ==============================
 Follow the instructions to contribute to `gc-nomad`
 
+Which `golang` IDE to use ?
+----------------------------
+- JetBrains GoLand - Paid but fimilar
+- Microsoft Visual Code - Great (what I ended up using)
+
 Install `golang` (MacOS/Linux)
 -------------------------------
 ```sh
@@ -33,20 +38,21 @@ $ go version
 go version go1.2.1 linux/amd64
 ```
 
-Fetch `gc-nomad`
-------------------------
+Fetch `gc-nomad` for development
+--------------------------------
 ```sh
-$ mkdir $HOME/go/src
-$ cd $HOME/go/src
-$ export $GOPATH=$HOME/go
-$ mkdir $HOME/go/src
+$ mkdir -p $HOME/go/src
 $ cd $HOME/go/src
 $ git clone https://github.com/zonnie/nomad.git
 $ cd nomad
 $ make bootstrap
-$ zip -r $HOME/nomad_src.zip nomad
-$ scp $HOME/nomad.zip root@web-server:/root/go/src/github.com/hashicorp/.
 ```
+
+Publishing changes (Work-in-Progress)
+------------------
+- Push changes to repo
+- Build a new binary on build node
+
 
 `gc-nomad` Build node
 ==============================
