@@ -50,8 +50,8 @@ $ make bootstrap
 - Build a new binary on build node
 
 
-`gc-nomad` Build node
----------------------
+Preparing `gc-nomad` Build node
+-------------------------------
 Follow these instructions to:
 - Create a `gc-nomad` build node
 - Build a release `gc-nomad` binary
