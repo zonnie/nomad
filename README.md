@@ -14,11 +14,11 @@ This is our twist on Nomad, it has several modifications over the origianl Nomad
 
 
 Getting Started
--------------------------------
+==============================
 Follow the instructions to contribute to GC-Nomad
 
 Install `golang` (MacOS/Linux)
-==============================
+-------------------------------
 ```sh
 wget https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz
 sudo tar -xvf go1.12.6.linux-amd64.tar.gz
@@ -34,9 +34,10 @@ go version
 ```
 
 GC-Nomad Build node
-===================
+==============================
 
-**Prepare Build Node**
+Prepare Build Node
+------------------
 To prepare a VM to be able to build GC-Nomad:
 ```sh
 cd $GOPATH/src/github.com/hashicorp/
@@ -54,10 +55,10 @@ scp $HOME/nomad.zip root@web-server:/storage/nomad/0.9.3/.
 
 
 Contributing to GC-Nomad
-------------------------
+========================
 **Developing locally**
 Fetching GC-Nomad
-=================
+------------------------
 ```sh
 mkdir $HOME/go/src
 cd $HOME/go/src
