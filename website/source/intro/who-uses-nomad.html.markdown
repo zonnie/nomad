@@ -49,7 +49,7 @@ Nomad is widely adopted and used in production by PagerDuty, Target, Citadel, Tr
   * [Playing with Nomad from HashiCorp](https://danielparker.me/nomad/hashicorp/schedulers/nomad/)
 
 ####Trivago
-  * [Maybe You Don’t Need Kubernetes](https://matthias-endler.de/2019/maybe-you-dont-need-kubernetes/)
+  * [Maybe You Don’t Need Kubernetes](https://endler.dev/2019/maybe-you-dont-need-kubernetes/)
   * [Nomad - Our Experiences and Best Practices](https://tech.trivago.com/2019/01/25/nomad-our-experiences-and-best-practices/)
 
 ####Roblox
